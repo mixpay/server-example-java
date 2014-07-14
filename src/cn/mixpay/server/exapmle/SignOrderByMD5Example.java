@@ -1,5 +1,7 @@
 package cn.mixpay.server.exapmle;
-import cn.mixpay.server.SignatureTool;
+
+import cn.mixpay.server.MD5SignatureTool;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -7,12 +9,12 @@ import java.net.URLEncoder;
  * Created by xyn0563 on 6/5/14.
  * 订单信息签名示例
  */
-public class SignOrderExample {
+public class SignOrderByMD5Example {
 
     public static void main(String[] args) {
 
         // 金额，不能为空
-        double amount = 2.00;
+        int amount = 2;
 
         // 订单ID，不能为空
         String appOrderId = "order001";
@@ -41,8 +43,8 @@ public class SignOrderExample {
         String appUserId = "U0001";
 
         // 1.签名
-        String orderSign = SignatureTool.signOrderInfo(amount, MerchantConfig.APP_KEY, extData, appOrderId, notifyUrl, orderDesc, orderTitle, productDesc,
-                productId, productName, appUserId, MerchantConfig.PRIVATE_KEY);
+        String orderSign = MD5SignatureTool.signOrderInfo(amount, MerchantConfig.APP_KEY, extData, appOrderId, notifyUrl, orderDesc, orderTitle, productDesc,
+                productId, productName, appUserId, MerchantConfig.SECRET_KEY);
         String encodedOrderSign = null;
         try {
             encodedOrderSign = URLEncoder.encode(orderSign, "utf-8");
